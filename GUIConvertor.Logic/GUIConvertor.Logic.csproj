@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Convertor.Model\Convertor.Model.csproj" />
+    <ProjectReference Include="..\GUIConvertor.Model\GUIConvertor.Model.csproj" />
   </ItemGroup>
 
 </Project>
