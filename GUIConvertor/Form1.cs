@@ -18,10 +18,10 @@ namespace GUIConvertor
         {
             InitializeComponent();
         }
-        static String path,fileName;
+        static String path;
         private void BUTTOON_CALP_FILE_Click(object sender, EventArgs e)
         {
-            XTSFHELPER.CreateCalpFile(path,fileName);
+            ScriptGenerator.CreateCalpFile(path);
         }
 
         private void BUTTON_XTSF_FILE_Click(object sender, EventArgs e)
@@ -33,8 +33,6 @@ namespace GUIConvertor
             if (result == DialogResult.OK)
             {
                 path = dialog.FileName;
-                fileName = dialog.SafeFileName;
-                fileName = fileName.Substring(0,fileName.IndexOf("."));
             }
         }
     }

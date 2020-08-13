@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIConvertor", "GUIConvertor\GUIConvertor.csproj", "{803EC14F-892A-4E72-91EF-4B8C32B68BD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIConvertor.Model", "GUIConvertor.Model\GUIConvertor.Model.csproj", "{565A84C5-D09B-42A6-9F25-1B586DCF00BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUIConvertor.Model", "GUIConvertor.Model\GUIConvertor.Model.csproj", "{565A84C5-D09B-42A6-9F25-1B586DCF00BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUIConvertor.Logic", "GUIConvertor.Logic\GUIConvertor.Logic.csproj", "{1EB278A1-C23C-4D76-ABA5-C7852BE776F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUIConvertor.Logic", "GUIConvertor.Logic\GUIConvertor.Logic.csproj", "{1EB278A1-C23C-4D76-ABA5-C7852BE776F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
