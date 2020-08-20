@@ -1,5 +1,6 @@
-﻿using GUIConvertor.Logic.Interfaces;
-using GUIConvertor.Model;
+﻿using Convertor.Logic;
+using Convertor.Logic.Interfaces;
+using Convertor.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace GUIConvertor.Logic
+namespace Convertor.Logic
 {
     public class ScriptGenerator
     {
@@ -27,7 +28,7 @@ namespace GUIConvertor.Logic
             }
             return ctor;
         }
-        public static void GenerateOutFile(Testsetfile xTSF, string testCase, string path,string text)
+        public static void GenerateOutFile(Testsetfile xTSF, string testCase, string path, string text)
         {
             var pathVar = Path.Combine(path, Path.GetFileNameWithoutExtension(xTSF.Prename));
             if (!Directory.Exists(pathVar))
@@ -48,15 +49,16 @@ namespace GUIConvertor.Logic
             }
             return false;
         }
-        public static void GenerateCapl(Testsetfile xTSF, string testCase,string path)
+        public static void GenerateCapl(Testsetfile xTSF, string testCase, string path)
         {
             double result;
             int c = 0;
-            List <string> auxString = new List<string>();
+            List<string> auxString = new List<string>();
             string text = startText;
-            if(CheckDiagScript(xTSF,testCase))
+            if (CheckDiagScript(xTSF, testCase))
                 text += "\tDiagRequest req;\n\tlong ret;\n";
-            for (int i = 0; i < CountValidCondition(xTSF, testCase); i++) {
+            for (int i = 0; i < CountValidCondition(xTSF, testCase); i++)
+            {
                 text += $"\tmsTimer t{i};\n";
             }
             text += $"}}\non start\n{{";
@@ -65,7 +67,7 @@ namespace GUIConvertor.Logic
                 foreach (Condition condition in entry.Condition)
                 {
                     var ScriptType = CaplConditionFactory.GetScript(condition);
-                    if(ScriptType != null)
+                    if (ScriptType != null)
                     {
                         if (Double.TryParse(ScriptType.Time, out result))
                         {
@@ -76,7 +78,7 @@ namespace GUIConvertor.Logic
                 }
             }
             text += "\n}";
-            foreach(var item in auxString)
+            foreach (var item in auxString)
             {
                 text += $"\non timer t{auxString.IndexOf(item)}\n{{" + item + "}";
             }

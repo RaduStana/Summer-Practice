@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace GUIConvertor.Model
+namespace Convertor.Model
 {
 	[XmlRoot(ElementName = "Excelversion")]
 	public class Excelversion

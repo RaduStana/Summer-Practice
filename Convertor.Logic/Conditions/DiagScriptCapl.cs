@@ -1,4 +1,4 @@
-﻿using GUIConvertor.Logic.Interfaces;
+﻿using Convertor.Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;

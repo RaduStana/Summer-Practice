@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DocumentFormat.OpenXml" Version="2.11.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GUIConvertor.Model\GUIConvertor.Model.csproj" />
   </ItemGroup>
 
