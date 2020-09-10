@@ -1,6 +1,5 @@
 ﻿using Convertor.Logic;
 using Convertor.Model;
-using Convertor.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,14 +17,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Convertor
+namespace Convertor.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CAPLview.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CAPLview : System.Windows.Controls.UserControl
     {
-        public MainWindow()
+        public CAPLview()
         {
             InitializeComponent();
         }

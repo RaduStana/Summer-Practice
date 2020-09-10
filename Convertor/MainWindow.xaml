@@ -5,12 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Convertor"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:viewmodels="clr-namespace:Convertor.ViewModels"
+        xmlns:views="clr-namespace:Convertor.Views"
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding Source={x:Static viewmodels:MainViewModel.Instance}}">
+    
+    <Window.Resources>
+        <DataTemplate x:Name="XTSFTemplate" DataType="{x:Type viewmodels:XTSFviewModel}">
+            <views:XTSFview DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="CAPLTemplate" DataType="{x:Type viewmodels:CAPLviewModel}">
+            <views:CAPLview DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="78,44,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="249,44,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="78,133,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="249,133,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <DockPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="5" Background="Gray">
+            <StackPanel>
+                <Button Content="Convert XTSF" Command="{Binding XTSFCommand}"/>
+                <Button Content="Convert CAPL" Command="{Binding CaplCommand}"/>
+            </StackPanel>
+        </DockPanel>
+        
+        <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Grid.RowSpan="5" Content="{Binding CurrentView}"/>
     </Grid>
 </Window>

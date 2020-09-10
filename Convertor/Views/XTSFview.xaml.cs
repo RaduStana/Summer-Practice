@@ -1,9 +1,6 @@
 ﻿using Convertor.Logic;
-using Convertor.Model;
-using Convertor.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,16 +15,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Convertor
+namespace Convertor.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for XTSFview.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class XTSFview : System.Windows.Controls.UserControl
     {
-        public MainWindow()
+        public XTSFview()
         {
             InitializeComponent();
         }
+        
     }
 }

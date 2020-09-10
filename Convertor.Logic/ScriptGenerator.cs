@@ -84,7 +84,7 @@ namespace Convertor.Logic
             }
             GenerateOutFile(xTSF, testCase, path, text);
         }
-        public static void CreateCalpFile(string path)
+        public static void CreateCaplFile(string path)
         {
             var xTSF = XTSFHELPER.DeserializeToObject<Testsetfile>(path);
             foreach (var test in xTSF.Tests.Entry)
