@@ -4,13 +4,42 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Convertor.Views"
+             xmlns:Validation="clr-namespace:Convertor"
              xmlns:viewModels="clr-namespace:Convertor.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              DataContext="{Binding Source={x:Static viewModels:CAPLviewModel.Instance}}">
-    
-    <DockPanel LastChildFill="False">
-        <GroupBox Header="information" DockPanel.Dock="Top" Margin="10">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="MainBorderBrush">#FF91B3FF</SolidColorBrush>
+        <Style TargetType="Control" x:Key="myErrorTemplate">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NewComboBoxStyle" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource myErrorTemplate}">
+            <Setter Property="BorderBrush" Value="{DynamicResource MainBorderBrush}" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="BorderBrush" Value="Blue" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <ControlTemplate x:Key="comboBoxValidationTemplate">
+            <DockPanel Name="myDockPanel">
+                <AdornedElementPlaceholder/>
+                <TextBlock Text="*" FontWeight="Bold" FontSize="14" Foreground="Red" DockPanel.Dock="Left" ToolTip="{Binding (Validation.Errors)[0]}" />
+            </DockPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
+    <DockPanel LastChildFill="False" >
+        <DockPanel.Resources>
+            <Validation:HasAllTextConverter x:Key="HasAllTextConverter" />
+        </DockPanel.Resources>
+        <GroupBox Header="Information" DockPanel.Dock="Top" Margin="10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -24,26 +53,48 @@
                     <RowDefinition Height="auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Label Content="Tester" Grid.Row="0" Grid.Column="0"></Label>
-                <TextBox Grid.Column="1" Margin="5 5 5 10" ></TextBox>
+                <TextBox Name="TesterTextBox" Grid.Column="1" Margin="5 5 5 10" 
+                         Text="{Binding Tester, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                         ToolTip="{Binding ErrorCol[Tester]}"/>
                 <Label Content="Email" Grid.Row="1" Grid.Column="0"></Label>
-                <TextBox Grid.Column="2" Grid.Row="1" Margin="5 5 5 10"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="1" Margin="5 5 5 10" Name="EmailTextBox" 
+                         Text="{Binding Email, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                         ToolTip="{Binding ErrorCol[Email]}"/>
                 <Label Content="XTSF name" Grid.Row="2" Grid.Column="0"></Label>
-                <TextBox Grid.Column="2" Grid.Row="2" Margin="5 5 5 10"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="2" Margin="5 5 5 10" Name="XTSFNameTextBox" 
+                         Text="{Binding PrenameXtsf, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         ToolTip="{Binding ErrorCol[PrenameXtsf]}"/>
                 <Label Content="Subsystem" Grid.Row="3" Grid.Column="0"></Label>
-                <TextBox Grid.Column="2" Grid.Row="3" Margin="5 5 5 10"></TextBox>
+                <TextBox Grid.Column="2" Grid.Row="3" Margin="5 5 5 10" Name="SubsystemTextBox" 
+                         Text="{Binding Subsystem, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                         ToolTip="{Binding ErrorCol[Subsystem]}" />
                 <Label Content="Test Mode" Grid.Row="4" Grid.Column="0"></Label>
-                <ComboBox Grid.Column="2" Grid.Row="4" Margin="5 5 5 10" ></ComboBox>
+                <ComboBox Grid.Column="2" Grid.Row="4" Margin="5 5 5 10" Name="TestModeComboBox"
+                          SelectedIndex="0"
+                          ItemsSource="{Binding SourceTestMode}" SelectedItem="{Binding TestMode}" 
+                          Style="{StaticResource NewComboBoxStyle}"
+                          Validation.ErrorTemplate="{StaticResource comboBoxValidationTemplate}"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Tests Cases" DockPanel.Dock="Top" Margin="10">
             <DockPanel >
                 <Label Content="Maneuvers:"></Label>
-                <ComboBox Margin="5 5 5 10" Width="auto" ></ComboBox>
+                <ComboBox Margin="5 5 5 10" Width="auto" Name="ManeuversComboBox" SelectedIndex="0"
+                          ItemsSource="{Binding SourceMan}" SelectedItem="{Binding TestsMan}"/> 
             </DockPanel>
         </GroupBox>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Height="auto" HorizontalAlignment="Center">
-            <Button Content="Add Capl" Command="{Binding AddCaplCommand}" Margin="10" Width="200"/>
-            <Button Content="Generate XTSF" Command="{Binding GenerateXTSFCommand}" Margin="10" Width="200"/>
+            <Button x:Name="AddCaplBtt" Content="Add Capl" Command="{Binding AddCaplCommand }" Margin="10" Width="200" />
+            <Button x:Name="GenXtsfBtt" Content="Generate XTSF" Command="{Binding GenerateXTSFCommand}" Margin="10" Width="200">
+                <Button.IsEnabled>
+                    <MultiBinding Converter="{StaticResource HasAllTextConverter}">
+                        <Binding ElementName="TesterTextBox" Path="Text" />
+                        <Binding ElementName="EmailTextBox" Path="Text" />
+                        <Binding ElementName="SubsystemTextBox" Path="Text" />
+                        <Binding ElementName="XTSFNameTextBox" Path="Text" />
+                    </MultiBinding>
+                </Button.IsEnabled>
+            </Button>
         </StackPanel>
     </DockPanel>
 </UserControl>

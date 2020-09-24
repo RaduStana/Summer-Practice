@@ -9,19 +9,29 @@ namespace Convertor.ViewModels.Commands
 {
     public class ViewModelCommands : ICommand
     {
-        public event EventHandler CanExecuteChanged;
         private Action _execute;
-
+        private readonly Predicate<object> _canExecute;
         public ViewModelCommands(Action execute)
         {
             _execute = execute;
         }
-
+        public ViewModelCommands(Action execute, Predicate<object> canExecute)
+        {
+            _execute = execute;
+            _canExecute = canExecute;
+        }
+        public event EventHandler CanExecuteChanged
+        {
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
+        }
         public bool CanExecute(object parameter)
         {
-            return true;
+            if (_canExecute == null)
+                return true;
+            else
+                return _canExecute(parameter);
         }
-
         public void Execute(object parameter)
         {
             _execute.Invoke();

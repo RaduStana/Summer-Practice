@@ -257,7 +257,7 @@ namespace Convertor.Model
 	public class Testsetfile
 	{
 		[XmlElement(ElementName = "Information")]
-		public Information Information { get; set; }
+		public Information Information { get; set; } = new Information();
 		[XmlElement(ElementName = "Tests")]
 		public Tests Tests { get; set; } = new Tests();
 		[XmlElement(ElementName = "Functions")]

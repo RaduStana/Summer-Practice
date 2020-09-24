@@ -13,13 +13,15 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Content="Add XTSF" Command="{Binding AddXTSFCommand}" Grid.Row="0" Grid.Column="1"/>
-        <Button Content="Generate Capl" Command="{Binding GenerateCaplCommand}" Grid.Row="1" Grid.Column="1"/>
+        <Button Content="Add XTSF" Command="{Binding AddXTSFCommand}" Grid.Row="0" Grid.Column="0" Margin="10" Grid.ColumnSpan="4"/>
+        <Button Content="Generate Capl" Command="{Binding GenerateCaplCommand}" Grid.Row="1" Grid.Column="0" Margin="10" Grid.ColumnSpan="4"/>
     </Grid>
 </UserControl>

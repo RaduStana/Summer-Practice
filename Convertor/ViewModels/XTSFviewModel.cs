@@ -21,13 +21,15 @@ namespace Convertor.ViewModels
         public XTSFviewModel()
         {
             AddXTSFCommand = new ViewModelCommands(ButtonAddXTSF);
-            GenerateCaplCommand = new ViewModelCommands(ButtonGenerateCAPL);
+            GenerateCaplCommand = new ViewModelCommands(ButtonGenerateCAPL,IsClickedAdd);
         }
-
+        private bool IsClickedAdd(object o)
+        {
+            return !String.IsNullOrWhiteSpace(path); 
+        }
         private void ButtonAddXTSF()
         {
             OpenFileDialog dialog = new OpenFileDialog();
-
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 path = dialog.FileName;
@@ -36,6 +38,7 @@ namespace Convertor.ViewModels
         private void ButtonGenerateCAPL()
         {
             ScriptGenerator.CreateCaplFile(path);
+            System.Windows.MessageBox.Show("Capl scripts has been saved!");
         }
     }
 }
